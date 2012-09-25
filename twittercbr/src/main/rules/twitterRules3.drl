@@ -13,7 +13,7 @@ end
 rule "Dump tweets from US"
 when
     $s : Status( ) from entry-point "twitter"
-    $p : Place( countryCode == "US" ) from $s.place
+    $p : Place( countryCode == "BR" ) from $s.place
 then
     System.out.println( MessageFormat.format( "[{0,time,full}] ({3}) @{1} - {2}",
                                               $s.getCreatedAt(),

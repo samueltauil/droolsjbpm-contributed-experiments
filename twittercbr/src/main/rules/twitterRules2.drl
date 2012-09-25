@@ -6,12 +6,13 @@ import java.text.MessageFormat
 declare Status
     @role( event )
     @timestamp( createdAt )
-    @expires( 2s )
+    @expires( 1s )
 end
 
-rule "Dump tweets from people laughing"
+rule "Dump tweets from people talking about groupon"
 when
-    $s : Status( text matches ".*lol.*" ) from entry-point "twitter"
+    #$s : Status( text matches ".*groupon.*" ) from entry-point "twitter"
+     $s : Status(text matches ".* linux .*") from entry-point "twitter"
 then
     System.out.println( MessageFormat.format( "[{0,time,full}] @{1} - {2}",
                                               $s.getCreatedAt(),

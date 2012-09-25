@@ -32,10 +32,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.conf.ClockTypeOption;
 import org.drools.runtime.rule.WorkingMemoryEntryPoint;
 
-import twitter4j.StatusListener;
-import twitter4j.TwitterException;
-import twitter4j.TwitterStream;
-import twitter4j.TwitterStreamFactory;
+import twitter4j.*;
 
 /**
  * TwitterCBR
@@ -51,9 +48,10 @@ public class TwitterCBR {
             System.out.println("Please provide the rules file name to load.");
             System.exit( 0 );
         }
-        
+        System.out.println(args[0]);
         // Creates a knowledge base
         final KnowledgeBase kbase = createKnowledgeBase( args[0] );
+//        final KnowledgeBase kbase = createKnowledgeBase("/Users/samuel/Development/projects/droolsjbpm-contributed-experiments/twittercbr/src/main/rules/twitterRules2.drl");
         
         // Creates a knowledge session
         final StatefulKnowledgeSession ksession = createKnowledgeSession( kbase );
@@ -68,7 +66,9 @@ public class TwitterCBR {
                 StatusListener listener = new TwitterStatusListener( ep );
                 TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
                 twitterStream.addListener( listener );
-                twitterStream.sample();
+                FilterQuery query = new FilterQuery();
+                query.track(new String[]{"@groupon_br"});
+                twitterStream.filter(query);
             }
         } ).start();
         
@@ -106,7 +106,7 @@ public class TwitterCBR {
 
     static {
         // disable twitter4j log
-        System.setProperty( "twitter4j.loggerFactory", "twitter4j.internal.logging.NullLoggerFactory" );
+//        System.setProperty( "twitter4j.loggerFactory", "twitter4j.internal.logging.NullLoggerFactory" );
     }
     
 }
