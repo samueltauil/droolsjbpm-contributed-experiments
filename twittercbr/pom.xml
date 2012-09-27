@@ -59,7 +59,7 @@
   </dependencies>
 
   <properties>
-    <project.mainClass>org.drools.examples.TwitterCBR</project.mainClass>
+    <project.mainClass>org.drools.examples.twittercbr.TwitterCBR</project.mainClass>
   </properties>
   <build>
     <resources>
